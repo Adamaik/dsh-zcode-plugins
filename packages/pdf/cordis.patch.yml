@@ -1,0 +1,8 @@
+# dsh-zcode-pdf bundle patch: one row that registers the PDF skill.
+#
+# The skill's scripts use the harness Python and Node from
+# load_workspace_dependencies, and @deepseek-ai/libreoffice-kit for Office
+# conversion; no other runtime is installed by this bundle.
+- insert:
+    - id: zcode-pdf
+      name: 'dsh-zcode-pdf'

@@ -1,0 +1,28 @@
+PDF skill for DeepSeek Harness
+
+This package is a clean-room reimplementation of the capability set offered by
+the ZCode built-in "pdf" plugin. No upstream text, script, template, or asset is
+copied: the ZCode plugin and its skill are proprietary (see its LICENSE.txt),
+so only the workflow structure and capability boundary were used as a
+specification. Every file here is original work under the MIT license in
+LICENSE.
+
+Upstream reference (read-only, not redistributed):
+  /Applications/ZCode.app/Contents/Resources/glm/packages/pdf-plugin
+    .zcode-plugin/plugin.json   name=pdf, version=0.1.7, license=proprietary,
+                                author=Z.ai
+    skills/pdf/                 upstream routes: report, creative, academic,
+                                process
+
+Differences from the upstream plugin, and why:
+
+- The Report route renders a Markdown subset with ReportLab instead of the
+  upstream template engine.
+- The Creative route prints HTML with the Chromium already required by the
+  browser-use plugin, instead of a separate poster pipeline.
+- The Academic route compiles the user's own LaTeX source with Tectonic and
+  never substitutes another engine.
+- The conversion route uses the bundled @deepseek-ai/libreoffice-kit, the same
+  engine DSH's office skills use, instead of a system LibreOffice.
+- The process route keeps pypdf, pdfplumber, and PyMuPDF for structure,
+  tables, images, and page rendering.

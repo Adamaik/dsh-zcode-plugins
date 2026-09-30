@@ -1,0 +1,5 @@
+# dsh-zcode-browser-use bundle patch: one row that registers the upstream
+# browser skills and the Playwright-backed `browser_*` tools.
+- insert:
+    - id: zcode-browser-use
+      name: 'dsh-zcode-browser-use'

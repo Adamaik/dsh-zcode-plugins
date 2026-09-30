@@ -1,0 +1,21 @@
+Search by image for DeepSeek Harness
+
+Original work by the dsh-zcode-plugins contributors, MIT licensed.
+
+Not to be confused with the ZCode `image-search` plugin: that one is a hosted
+keyword search over a curated collection and needs a ZCode account plus a coding
+plan. This plugin searches in the opposite direction — the query is an image —
+and needs no account, no API key, and no outbound proxy.
+
+Engine:
+
+- Baidu 识图 (graph.baidu.com). The plugin drives the public web page with a
+  real browser: it opens the entry page, hands the query image to the page's
+  file input, and reads the recognition phrase, the similar-image grid, and any
+  external page links from the rendered result. Baidu publishes no keyless
+  reverse-image API, so the page is the interface. Baidu may change its layout,
+  rate-limit, or temporarily disable the service; the tool reports what it
+  actually saw and never fabricates a match.
+
+Third-party services: the plugin sends only the image the caller supplies. No
+credentials, no proxy, and no tracking are configured.

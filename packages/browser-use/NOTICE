@@ -1,0 +1,26 @@
+ZCode browser-use plugin
+Copyright 2025 Z.ai
+
+This package is an unofficial DeepSeek Harness port of the ZCode built-in
+browser-use plugin. The upstream skills and capability documentation are copied
+verbatim under skills/ and docs/; their copyright and MIT license remain those
+of the original author, and each copied skill carries an added "DSH port note"
+section that maps the upstream Node REPL transport onto DSH tools.
+
+Upstream source: /Applications/ZCode.app/Contents/Resources/glm/packages/browser-use-plugin
+  .zcode-plugin/plugin.json   name=browser-use, version=0.5.1, license=MIT, author=Z.ai
+  skills/control-browser/SKILL.md
+  skills/web-gui-tester/SKILL.md
+  docs/*                      browser capability documentation
+  README.md
+
+Changes required by DSH:
+- Upstream drives a `node_repl` MCP server whose `js` tool exposes ZCode's
+  `agent.browsers` registry. DSH has no Node REPL host and no in-app browser, so
+  the transport is reimplemented as native Playwright-backed tools with the
+  `browser_*` names; lib/browser.js and lib/tools.js are new work, not copies.
+- The upstream IAB/extension/CDP backend selection, tab-claiming, recording, and
+  coordinate (`cua`/`dom_cua`) escapes have no DSH equivalent and are marked as
+  inapplicable in the port note.
+
+Licensed under the MIT License. See LICENSE.

@@ -1,0 +1,53 @@
+{
+  "name": "dsh-zcode-pdf",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "DeepSeek Harness PDF production skill: reports, creative visuals, LaTeX, and existing-PDF processing, with bundled LibreOffice conversion.",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/libreoffice-kit": "^0.1.2"
+  },
+  "peerDependenciesMeta": {
+    "@deepseek-ai/libreoffice-kit": {
+      "optional": true
+    }
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "pdf",
+    "reportlab",
+    "pypdf",
+    "office-to-pdf"
+  ],
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git",
+    "directory": "packages/pdf"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

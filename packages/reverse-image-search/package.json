@@ -1,0 +1,51 @@
+{
+  "name": "dsh-reverse-image-search",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Search by image for DeepSeek Harness: give it a picture, get back what it shows and where it comes from. Keyless and proxy-free, driven through Baidu 识图.",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "playwright": "1.59.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6 || ^0.1.2-rc.1 || ^0.2.0-rc.1"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "reverse-image-search",
+    "image-search",
+    "baidu"
+  ],
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git",
+    "directory": "packages/reverse-image-search"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

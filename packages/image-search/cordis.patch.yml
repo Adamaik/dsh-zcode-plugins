@@ -1,0 +1,10 @@
+# dsh-zcode-image-search bundle patch: one row that mounts the ZCode
+# image-search MCP server through the DSH MCP client bridge.
+#
+# Connection settings come from the environment, read in index.js:
+#   ZCODE_BASE_URL   defaults to https://api.z.ai
+#   ZCODE_JWT_TOKEN  ZCode account JWT; without it the row still activates and
+#                    logs a connection warning instead of failing the boot.
+- insert:
+    - id: zcode-image-search
+      name: 'dsh-zcode-image-search'

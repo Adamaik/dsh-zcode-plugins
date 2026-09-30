@@ -1,0 +1,26 @@
+{
+  "name": "dsh-zcode-plugins",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Unofficial DeepSeek Harness bundles porting the ZCode built-in plugins DSH does not ship: PDF, browser-use (with a sidebar mirror), and image-search, plus a keyless reverse image search.",
+  "license": "SEE LICENSE IN packages/*/LICENSE",
+  "scripts": {
+    "check": "node scripts/check.mjs",
+    "verify": "node scripts/verify-plugins.mjs",
+    "verify:browser": "node scripts/verify-browser-sidebar.mjs",
+    "test": "node scripts/check.mjs && node scripts/verify-plugins.mjs && node scripts/verify-browser-sidebar.mjs"
+  },
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "engines": {
+    "node": ">=22.19.0"
+  }
+}

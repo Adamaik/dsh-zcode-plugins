@@ -1,0 +1,63 @@
+{
+  "name": "dsh-zcode-browser-use",
+  "version": "0.6.0",
+  "type": "module",
+  "description": "DSH port of the ZCode browser-use plugin: Playwright-backed browser tools plus the upstream control-browser and web-gui-tester skills, mirroring the agent's page into DSH Desktop's built-in sidebar Browser.",
+  "license": "MIT",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./lib/client.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "lib",
+    "skills",
+    "docs",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE",
+    "upstream-README.md"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web"
+    }
+  },
+  "dependencies": {
+    "playwright": "1.59.1"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6 || ^0.1.2-rc.1 || ^0.2.0-rc.1"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "browser",
+    "playwright",
+    "browser-automation",
+    "sidebar"
+  ],
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git",
+    "directory": "packages/browser-use"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

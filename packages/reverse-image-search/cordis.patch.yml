@@ -1,0 +1,5 @@
+# dsh-reverse-image-search bundle patch: one row that registers the
+# `image-search` skill and the `image_search` (by image) / `image_download` tools.
+- insert:
+    - id: reverse-image-search
+      name: 'dsh-reverse-image-search'

@@ -1,0 +1,47 @@
+{
+  "name": "dsh-zcode-image-search",
+  "version": "0.1.1",
+  "type": "module",
+  "description": "DSH port of the ZCode image-search MCP server: find illustrations and reference images.",
+  "license": "Apache-2.0",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "defaults.js",
+    "cordis.patch.yml",
+    "mcp.json",
+    "README.md",
+    "NOTICE",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/dsh-mcp-client": "^0.1.0-rc.6 || ^0.1.2-rc.1 || ^0.2.0-rc.1"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "image-search",
+    "mcp",
+    "zcode"
+  ],
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git",
+    "directory": "packages/image-search"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -1,0 +1,23 @@
+ZCode image-search plugin
+Copyright 2025 Z.ai
+
+This package is an unofficial DeepSeek Harness port of the ZCode built-in
+image-search plugin. The upstream MCP declaration is copied verbatim into
+mcp.json and zcode-plugin.json; its copyright and license notice remain those
+of the original author.
+
+Upstream source: /Applications/ZCode.app/Contents/Resources/glm/packages/image-search-plugin
+  .zcode-plugin/plugin.json   name=image-search, version=0.1.1, license=Apache-2.0
+  .mcp.json                   streamable HTTP MCP endpoint
+  README.md
+
+The only changes are the ones required to run on DSH: the DSH MCP client takes
+an explicit URL and headers instead of ZCode's `auth: { type: zcode_official,
+provider: jwt_token }` scheme. ZCode resolves that scheme to two headers —
+`Authorization` from the `zcodejwttoken` credential and
+`X-Bigmodel-Authorization` from the coding-plan credential — and index.js
+reproduces both from ZCODE_BASE_URL, ZCODE_JWT_TOKEN, and
+ZCODE_CODING_PLAN_TOKEN. The endpoint origin defaults to the value copied from
+ZCode, `https://zcode.z.ai`; no credential ships with this package.
+
+Licensed under the Apache License, Version 2.0. See LICENSE.
