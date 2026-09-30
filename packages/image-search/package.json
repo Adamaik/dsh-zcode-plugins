@@ -1,6 +1,6 @@
 {
   "name": "dsh-zcode-image-search",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "type": "module",
   "description": "DSH port of the ZCode image-search MCP server: find illustrations and reference images.",
   "license": "Apache-2.0",

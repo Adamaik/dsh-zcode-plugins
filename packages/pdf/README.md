@@ -19,6 +19,7 @@ The upstream skill is proprietary, so this package is a clean-room reimplementat
 ## Install
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-pdf
 dsh plugin --profile <profile> add ./packages/pdf
 ```
 

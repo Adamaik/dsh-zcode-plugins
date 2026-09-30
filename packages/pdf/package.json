@@ -1,6 +1,6 @@
 {
   "name": "dsh-zcode-pdf",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "DeepSeek Harness PDF production skill: reports, creative visuals, LaTeX, and existing-PDF processing, with bundled LibreOffice conversion.",
   "license": "MIT",

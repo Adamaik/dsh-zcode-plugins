@@ -19,6 +19,7 @@ DeepSeek Harness 的 PDF 制作技能，按 ZCode 内置 **pdf** 插件的能力
 ## 安装
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-pdf
 dsh plugin --profile <profile> add ./packages/pdf
 ```
 

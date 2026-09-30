@@ -46,6 +46,7 @@ image_download({ url: "<结果里的 thumbnailUrl>", path: "assets/match.jpg" })
 ## 安装
 
 ```sh
+dsh plugin --profile <profile> add dsh-reverse-image-search
 dsh plugin --profile <profile> add ./packages/reverse-image-search
 ```
 

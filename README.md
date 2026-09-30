@@ -15,17 +15,26 @@ Each package is an ordinary DSH bundle: a `package.json` declaring `dsh.bundle.p
 
 ## Install
 
-Pack each package and install the tarball. Installing the package directory with a link works too, but then pnpm does not install the browser package's `playwright` dependency, so a tarball is the supported local path:
+Every package is published to npm, so a profile can install it by name:
+
+```sh
+dsh plugin --profile <profile> add dsh-zcode-pdf
+dsh plugin --profile <profile> add dsh-zcode-browser-use
+dsh plugin --profile <profile> add dsh-zcode-image-search
+dsh plugin --profile <profile> add dsh-reverse-image-search
+```
+
+From a checkout, pack each package and install the tarball. Installing the package directory with a link works too, but then pnpm does not install the browser package's `playwright` dependency, so a tarball is the supported local path:
 
 ```sh
 cd dsh-zcode-plugins
 mkdir -p dist
 for p in pdf browser-use image-search reverse-image-search; do (cd packages/$p && npm pack --pack-destination ../../dist); done
 
-dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.0.tgz
-dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.0.tgz
-dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.1.tgz
-dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.0.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.1.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.1.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.2.tgz
+dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.1.tgz
 ```
 
 Keep `dist/` after installing: the profile records the tarball paths, so deleting them breaks a later `pnpm install` in that profile.

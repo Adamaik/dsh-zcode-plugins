@@ -19,6 +19,7 @@ The upstream transport does not exist in DSH: there is no Node REPL host, no in-
 ## Install
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-browser-use
 dsh plugin --profile <profile> add ./packages/browser-use
 ```
 

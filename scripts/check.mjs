@@ -84,11 +84,17 @@ for (const entry of readdirSync(packagesDir)) {
       }
     }
     if (file.endsWith('.py')) {
+      // ast.parse checks the syntax without writing __pycache__ next to the
+      // source, which would otherwise land in the published tarball.
       const python = process.env.PDF_PYTHON ?? 'python3'
       try {
-        execFileSync(python, ['-m', 'py_compile', file], { stdio: 'pipe' })
+        execFileSync(
+          python,
+          ['-c', 'import ast,sys; ast.parse(open(sys.argv[1], encoding="utf-8").read())', file],
+          { stdio: 'pipe' },
+        )
       } catch (error) {
-        fail(`${relative(ROOT, file)}: py_compile failed: ${error.stderr?.toString().trim()}`)
+        fail(`${relative(ROOT, file)}: python syntax check failed: ${error.stderr?.toString().trim()}`)
       }
     }
     if (file.endsWith('SKILL.md')) {

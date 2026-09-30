@@ -15,17 +15,26 @@ ZCode 内置插件中 DSH 尚未提供的那部分，非官方移植；另含一
 
 ## 安装
 
-先把每个包打成 tarball 再安装。用 link 方式装目录也可以，但那样 pnpm 不会安装浏览器包的 `playwright` 依赖，所以本地安装以 tarball 为准：
+每个包都已发布到 npm，profile 可以直接按名字安装：
+
+```sh
+dsh plugin --profile <profile> add dsh-zcode-pdf
+dsh plugin --profile <profile> add dsh-zcode-browser-use
+dsh plugin --profile <profile> add dsh-zcode-image-search
+dsh plugin --profile <profile> add dsh-reverse-image-search
+```
+
+从仓库本地安装则先把每个包打成 tarball。用 link 方式装目录也可以，但那样 pnpm 不会安装浏览器包的 `playwright` 依赖，所以本地安装以 tarball 为准：
 
 ```sh
 cd dsh-zcode-plugins
 mkdir -p dist
 for p in pdf browser-use image-search reverse-image-search; do (cd packages/$p && npm pack --pack-destination ../../dist); done
 
-dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.0.tgz
-dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.0.tgz
-dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.1.tgz
-dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.0.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.1.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.1.tgz
+dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.2.tgz
+dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.1.tgz
 ```
 
 安装后请保留 `dist/`：profile 里记录的是 tarball 路径，删掉会让该 profile 之后的 `pnpm install` 失败。

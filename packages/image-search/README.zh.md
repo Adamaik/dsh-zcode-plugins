@@ -20,6 +20,7 @@ ZCode 内置 **搜图** 插件的非官方 DeepSeek Harness 移植版：一个�
 ## 安装
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-image-search
 dsh plugin --profile <profile> add ./packages/image-search
 ```
 

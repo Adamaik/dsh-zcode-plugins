@@ -46,6 +46,7 @@ Baidu publishes no keyless reverse-image API, so the plugin drives the page with
 ## Install
 
 ```sh
+dsh plugin --profile <profile> add dsh-reverse-image-search
 dsh plugin --profile <profile> add ./packages/reverse-image-search
 ```
 

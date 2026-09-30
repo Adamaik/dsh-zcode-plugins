@@ -19,6 +19,7 @@ ZCode 内置 **浏览器操作（browser-use）** 插件的非官方 DeepSeek Ha
 ## 安装
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-browser-use
 dsh plugin --profile <profile> add ./packages/browser-use
 ```
 

@@ -20,6 +20,7 @@ The original files ship verbatim as [mcp.json](./mcp.json), [zcode-plugin.json](
 ## Install
 
 ```sh
+dsh plugin --profile <profile> add dsh-zcode-image-search
 dsh plugin --profile <profile> add ./packages/image-search
 ```
 

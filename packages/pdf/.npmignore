@@ -1,0 +1,3 @@
+# Compiled Python bytecode from local checks must never ship.
+__pycache__/
+*.pyc

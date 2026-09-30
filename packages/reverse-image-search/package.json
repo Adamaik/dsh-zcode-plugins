@@ -1,6 +1,6 @@
 {
   "name": "dsh-reverse-image-search",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "Search by image for DeepSeek Harness: give it a picture, get back what it shows and where it comes from. Keyless and proxy-free, driven through Baidu 识图.",
   "license": "MIT",

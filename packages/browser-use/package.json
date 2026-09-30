@@ -1,6 +1,6 @@
 {
   "name": "dsh-zcode-browser-use",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "type": "module",
   "description": "DSH port of the ZCode browser-use plugin: Playwright-backed browser tools plus the upstream control-browser and web-gui-tester skills, mirroring the agent's page into DSH Desktop's built-in sidebar Browser.",
   "license": "MIT",
