@@ -1,0 +1,55 @@
+{
+  "name": "dsh-bilibili-summary",
+  "version": "0.1.2",
+  "type": "module",
+  "description": "Bilibili video understanding for DeepSeek Harness: sign in once by QR code, pull a video's AI/CC subtitle track, and summarize it into a self-contained HTML document.",
+  "license": "MIT",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "lib",
+    "python",
+    "skills",
+    "cordis.patch.yml",
+    "README.md",
+    "README.zh.md",
+    "LICENSE",
+    "NOTICE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "qrcode-generator": "^2.0.4"
+  },
+  "peerDependencies": {
+    "@deepseek-ai/cordis": "^4.0.1",
+    "@deepseek-ai/schemastery": "^3.18.0",
+    "@deepseek-ai/dsh-tools": "^0.1.0-rc.6 || ^0.1.2-rc.1 || ^0.2.0-rc.1"
+  },
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "plugin",
+    "bilibili",
+    "subtitle",
+    "transcript",
+    "summary",
+    "html"
+  ],
+  "author": "Adamaik",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adamaik/dsh-zcode-plugins.git",
+    "directory": "packages/bilibili-summary"
+  },
+  "homepage": "https://github.com/Adamaik/dsh-zcode-plugins#readme",
+  "bugs": {
+    "url": "https://github.com/Adamaik/dsh-zcode-plugins/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

@@ -2,7 +2,7 @@
 
 [English](README.md) | 中文
 
-ZCode 内置插件中 DSH 尚未提供的那部分，非官方移植；另含一个原创插件。DSH 已经有 `office-docx`、`office-pptx`、`office-xlsx` 技能，所以本仓库补齐剩下三项能力，并额外提供一个不需要 ZCode 账号的无 key 搜图。
+ZCode 内置插件中 DSH 尚未提供的那部分，非官方移植；另含原创插件。DSH 已经有 `office-docx`、`office-pptx`、`office-xlsx` 技能，所以本仓库补齐剩下三项能力，并额外提供无需 ZCode 账号的无 key 搜图，以及一个 B站字幕 → HTML 汇总插件。
 
 | 包 | 移植对象 | 许可证 | 上游处理方式 |
 | --- | --- | --- | --- |
@@ -10,6 +10,7 @@ ZCode 内置插件中 DSH 尚未提供的那部分，非官方移植；另含一
 | [`dsh-zcode-browser-use`](./packages/browser-use) | ZCode `browser-use` 插件 | MIT | 技能与文档原样照搬；传输层用 Playwright 重写 |
 | [`dsh-zcode-image-search`](./packages/image-search) | ZCode `image-search` 插件 | Apache-2.0 | MCP 声明原样照搬；通过 DSH MCP 客户端接线 |
 | [`dsh-reverse-image-search`](./packages/reverse-image-search) | —（原创，非移植） | MIT | **以图搜图**（百度识图）；无需 API key 与代理 |
+| [`dsh-bilibili-summary`](./packages/bilibili-summary) | —（原创，非移植） | MIT | B站 AI/CC 字幕抽取（protobuf 接口 + 播放器 URL 重签），无字幕时本地 ASR 兜底，并附带 HTML 报告技能 |
 
 每个包都是标准 DSH bundle：`package.json` 声明 `dsh.bundle.patch`，再加一层 `cordis.patch.yml`。
 
@@ -22,6 +23,7 @@ dsh plugin --profile <profile> add dsh-zcode-pdf
 dsh plugin --profile <profile> add dsh-zcode-browser-use
 dsh plugin --profile <profile> add dsh-zcode-image-search
 dsh plugin --profile <profile> add dsh-reverse-image-search
+dsh plugin --profile <profile> add dsh-bilibili-summary
 ```
 
 从仓库本地安装则先把每个包打成 tarball。用 link 方式装目录也可以，但那样 pnpm 不会安装浏览器包的 `playwright` 依赖，所以本地安装以 tarball 为准：
@@ -29,12 +31,13 @@ dsh plugin --profile <profile> add dsh-reverse-image-search
 ```sh
 cd dsh-zcode-plugins
 mkdir -p dist
-for p in pdf browser-use image-search reverse-image-search; do (cd packages/$p && npm pack --pack-destination ../../dist); done
+for p in pdf browser-use image-search reverse-image-search bilibili-summary; do (cd packages/$p && npm pack --pack-destination ../../dist); done
 
 dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.2.tgz
 dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.1.tgz
+dsh plugin --profile <profile> add ./dist/dsh-bilibili-summary-0.1.2.tgz
 ```
 
 安装后请保留 `dist/`：profile 里记录的是 tarball 路径，删掉会让该 profile 之后的 `pnpm install` 失败。
@@ -49,7 +52,7 @@ dsh --profile <profile> --dump-config
 
 ## 来源
 
-三个包都移植自 ZCode 3.14.3 内置插件（`/Applications/ZCode.app/Contents/Resources/glm/packages/`）。每个包都有 `NOTICE`，写明上游版本、许可证与所有为 DSH 做的改动。浏览器与搜图包把上游文件原样随包提供，与 DSH 接线代码并列。
+三个移植包都来自 ZCode 3.14.3 内置插件（`/Applications/ZCode.app/Contents/Resources/glm/packages/`），两个原创包在上表中已标注。每个包都有 `NOTICE`，写明上游版本、许可证与所有为 DSH 做的改动。浏览器与搜图包把上游文件原样随包提供，与 DSH 接线代码并列。
 
 ## 验证
 
@@ -57,6 +60,7 @@ dsh --profile <profile> --dump-config
 node scripts/check.mjs                   # frontmatter、patch 与目录结构检查
 node scripts/verify-plugins.mjs          # 用真实 DSH 注册表加载每个插件
 node scripts/verify-browser-sidebar.mjs  # 真实 Chromium + 侧边栏镜像逻辑
+node scripts/test-bilibili.mjs           # B站 bundle 的免网络单元测试
 ```
 
 运行期验证命令写在每个包的 README 里，覆盖 PDF 脚本、真实 Chromium 上的浏览器工具，以及把 bundle 安装进临时 profile。

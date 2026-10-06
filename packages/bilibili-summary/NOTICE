@@ -1,0 +1,45 @@
+Bilibili video summary for DeepSeek Harness
+
+Original work by the dsh-zcode-plugins contributors, MIT licensed.
+
+What this plugin talks to:
+
+- Bilibili web APIs (`api.bilibili.com`): `x/web-interface/view` for metadata,
+  `x/v2/subtitle/web/view` for the subtitle track list, `x/player/wbi/playurl`
+  for the audio fallback, and `x/web-interface/view/conclusion/get` for the
+  platform's own AI summary.
+- Bilibili's official passport QR flow (`passport.bilibili.com`):
+  `x/passport-login/web/qrcode/generate` issues the login code and
+  `x/passport-login/web/qrcode/poll` reports scan progress and sets the session
+  cookies. The plugin renders the login URL as a PNG locally; it never sends the
+  code to a third-party image service.
+- `aisubtitle.hdslb.com` for the subtitle JSON a track points at, after the
+  `subtitle.bilibili.com` path is decoded and rewritten.
+
+The credentials stay local: the cookie jar is written to
+`$DSH_HOME/bilibili-cookies.json` (mode 0600) and is only ever sent to
+`bilibili.com` hosts. `bilibili_login { action: "logout" }` deletes it.
+
+Subtitle route notes: `x/v2/subtitle/web/view` answers in protobuf, and the
+paths it returns must be XOR-decoded and re-hosted before they can be fetched.
+The two key pairs used for that transform are transcribed from Bilibili's own
+player bundle (`bfs/static/player/main/core.*.js`, the `F`/`U` helpers); the
+plugin reimplements the same transform in `lib/subtitle-url.js` and pins it with
+a unit test. The legacy `x/player/v2` subtitle field is deliberately not used:
+under rate limiting it has been observed returning a truncated body belonging
+to another video.
+
+Audio fallback: when a video has no subtitle track, the plugin downloads the
+DASH audio stream and transcribes it locally with faster-whisper. First use
+creates a private virtualenv at `$DSH_HOME/bilibili-asr/venv` from the system
+Python (the harness Python runtime cannot load pip-installed native extensions
+on macOS) and downloads the model into `$DSH_HOME/bilibili-asr/models`. Audio
+files are deleted after transcription unless `keep_audio` is set.
+
+Third-party code:
+
+- `qrcode-generator` (MIT, Kazuhiko Arase) renders the sign-in QR modules.
+- `faster-whisper` is installed into the fallback virtualenv at runtime; it is
+  not bundled with this package.
+- ffmpeg is used as an external binary for audio extraction; it is not bundled.
+- Everything else is Node standard library plus the bundled Python script.

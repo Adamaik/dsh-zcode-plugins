@@ -1,0 +1,23 @@
+# dsh-bilibili-summary bundle patch: one row that registers the
+# `bilibili-summary` skill and the `bilibili_login` / `bilibili_video_info` /
+# `bilibili_subtitles` / `bilibili_transcribe` tools.
+#
+# Optional row config (all fields have defaults; an empty config is valid):
+#   - id: bilibili-summary
+#     name: 'dsh-bilibili-summary'
+#     config:
+#       cookieFile: ~/.dsh/bilibili-cookies.json  # default: $DSH_HOME/bilibili-cookies.json
+#       sessdata: ''                              # or set BILIBILI_SESSDATA in $DSH_HOME/.env
+#       language: ai-zh                           # preferred subtitle track
+#       retries: 6                                # subtitle attempts under rate limiting
+#       retryBaseDelayMs: 8000                    # first backoff; grows by 3000 ms per attempt
+#       timeoutMs: 20000                          # per HTTP request
+#       ffmpegPath: ''                            # default: autodetect ffmpeg on PATH
+#       asrPython: ''                             # python with faster-whisper; default: $DSH_HOME/bilibili-asr/venv
+#       asrVenv: ''                               # default: $DSH_HOME/bilibili-asr/venv
+#       asrModel: small                           # faster-whisper model for the audio fallback
+#       asrModelDir: ''                           # default: $DSH_HOME/bilibili-asr/models
+#       asrLanguage: auto                         # spoken language for the audio fallback
+- insert:
+    - id: bilibili-summary
+      name: 'dsh-bilibili-summary'

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}} · 视频汇总</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --card: #ffffff; --ink: #17181c; --muted: #5f6470; --line: #e5e7eb;
+    --brand: #00a1d6; --brand-ink: #ffffff; --accent: #f25d8e; --code: #f3f4f6;
+    --shadow: 0 1px 2px rgba(16, 24, 40, .06), 0 8px 24px rgba(16, 24, 40, .06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #101114; --card: #17191d; --ink: #ecedf1; --muted: #a0a5b1; --line: #2a2d34;
+      --brand: #2bb3e0; --brand-ink: #06202a; --accent: #ff7aa8; --code: #1e2126;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .4), 0 8px 28px rgba(0, 0, 0, .35);
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; padding: 32px 16px 64px; background: var(--bg); color: var(--ink);
+    font: 16px/1.75 -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  }
+  .wrap { max-width: 920px; margin: 0 auto; display: grid; gap: 20px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; box-shadow: var(--shadow); }
+  .video { display: flex; gap: 18px; align-items: center; }
+  .video img { width: 190px; aspect-ratio: 16 / 9; object-fit: cover; border-radius: 10px; background: var(--code); }
+  h1 { font-size: 22px; line-height: 1.45; margin: 0 0 10px; }
+  h2 { font-size: 17px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+  h2::before { content: ""; width: 4px; height: 16px; border-radius: 2px; background: var(--brand); }
+  h3 { font-size: 15px; margin: 18px 0 6px; }
+  p { margin: 0 0 10px; }
+  a { color: var(--brand); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 16px; color: var(--muted); font-size: 14px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 2px 10px; border-radius: 999px; background: var(--code); color: var(--muted); font-size: 13px; }
+  .lead { font-size: 17px; font-weight: 600; }
+  ol, ul { margin: 0; padding-left: 22px; }
+  li { margin: 6px 0; }
+  .points li { margin: 12px 0; }
+  .points strong { color: var(--accent); }
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li { display: grid; grid-template-columns: 62px 1fr; gap: 12px; padding: 9px 0; border-top: 1px dashed var(--line); }
+  .timeline li:first-child { border-top: 0; }
+  .timeline time { font-variant-numeric: tabular-nums; color: var(--brand); font-weight: 600; font-size: 14px; }
+  .terms { display: grid; gap: 10px; }
+  .term { display: grid; grid-template-columns: 160px 1fr; gap: 12px; padding: 10px 12px; background: var(--code); border-radius: 10px; }
+  .term b { font-weight: 600; }
+  .hint { color: var(--muted); font-size: 13px; margin: -6px 0 10px; }
+  /* Inline annotation: the superscript number shows the note on hover/focus. */
+  .note-ref { position: relative; display: inline-block; vertical-align: super; font-size: 11px; line-height: 1; }
+  .note-ref > a { display: inline-block; padding: 0 4px; border-radius: 4px; background: var(--code); text-decoration: none; }
+  .note-ref .note-pop {
+    position: absolute; left: 50%; bottom: 170%; transform: translateX(-50%);
+    width: max-content; max-width: min(380px, 74vw);
+    padding: 10px 12px; border-radius: 10px;
+    background: var(--card); color: var(--ink); border: 1px solid var(--line); box-shadow: var(--shadow);
+    font-size: 13px; font-weight: 400; line-height: 1.65; text-align: left; white-space: normal;
+    opacity: 0; visibility: hidden; transition: opacity .12s ease, visibility .12s;
+    z-index: 30; pointer-events: none;
+  }
+  .note-ref:hover .note-pop,
+  .note-ref:focus .note-pop,
+  .note-ref:focus-within .note-pop { opacity: 1; visibility: visible; pointer-events: auto; }
+  .note-pop b { color: var(--accent); }
+  .note-pop .src { display: block; margin-top: 6px; color: var(--muted); font-size: 12px; }
+  @media (max-width: 640px) { .note-ref .note-pop { left: 0; transform: none; max-width: 88vw; } }
+  ol.notes { margin: 0; padding-left: 22px; }
+  ol.notes li { margin: 10px 0; }
+  ol.notes b { color: var(--accent); }
+  ol.notes .src { color: var(--muted); font-size: 13px; }
+  blockquote { margin: 8px 0; padding: 8px 14px; border-left: 3px solid var(--accent); background: var(--code); border-radius: 0 8px 8px 0; }
+  blockquote footer { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  details { border-top: 1px solid var(--line); padding-top: 12px; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+  details p { margin: 10px 0; }
+  footer.page { color: var(--muted); font-size: 13px; text-align: center; }
+  @media (max-width: 640px) { .video { flex-direction: column; align-items: stretch; } .video img { width: 100%; } .term { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <section class="card video">
+    <img src="{{COVER}}" alt="视频封面">
+    <div>
+      <h1>{{TITLE}}</h1>
+      <div class="meta">
+        <span>UP：{{UP_NAME}}</span>
+        <span>时长：{{DURATION}}</span>
+        <span>发布：{{PUBDATE}}</span>
+        <span class="pill">播放 {{VIEW}} · 点赞 {{LIKE}}</span>
+      </div>
+      <p style="margin-top:10px"><a href="{{VIDEO_URL}}" target="_blank" rel="noreferrer">▶ 在 B站 打开原视频</a></p>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>一句话总结</h2>
+    <p class="lead">{{ONE_LINE_SUMMARY}}</p>
+    <p class="pill">{{DATA_NOTE}}</p>
+  </section>
+
+  <section class="card">
+    <h2>核心要点</h2>
+    <ul class="points">
+      {{CORE_POINTS}}
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>时间轴</h2>
+    <ul class="timeline">
+      {{TIMELINE}}
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>关键概念</h2>
+    <div class="terms">
+      {{TERMS}}
+    </div>
+  </section>
+
+  <section class="card" id="notes">
+    <h2>背景注释</h2>
+    <p class="hint">正文里的角标<b>鼠标移上去即可展开</b>；这里同时给出完整清单，方便通读与打印。</p>
+    <ol class="notes">
+      {{NOTES}}
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>金句摘录</h2>
+    {{QUOTES}}
+  </section>
+
+  <section class="card">
+    <h2>行动清单</h2>
+    <ol>
+      {{ACTIONS}}
+    </ol>
+  </section>
+
+  <section class="card">
+    <h2>完整文稿</h2>
+    <details>
+      <summary>展开 {{SEGMENT_COUNT}} 段字幕整理后的全文</summary>
+      {{TRANSCRIPT}}
+    </details>
+  </section>
+
+  <footer class="page">
+    {{SOURCE_LINE}}<br>
+    由 DeepSeek Harness 的 dsh-bilibili-summary 插件生成 · {{GENERATED_AT}}
+  </footer>
+
+</div>
+</body>
+</html>
