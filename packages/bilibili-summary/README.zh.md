@@ -16,6 +16,10 @@ B站 对未登录用户隐藏 AI 字幕，插件走官方扫码登录流程并�
 | `bilibili_series` | 列 UP 的最近投稿 / 合集系列 / 合集内视频，用于批量任务 |
 | `bilibili_login` | 扫码登录（`start` / `poll` / `status` / `logout`） |
 
+![生成的汇总文档](https://raw.githubusercontent.com/Adamaik/dsh-zcode-plugins/main/packages/bilibili-summary/docs/preview.png)
+
+*实际产物：信息卡、一句话总结、核心要点，以及可点击跳回原片的时间轴。*
+
 外加 `bilibili-summary` 技能：按内置模板产出中文 HTML 报告（信息卡 → 一句话总结 → 核心要点 → 可点击时间轴 → 关键概念 → **背景注释** → 金句 → 行动清单 → 可折叠全文）。
 
 ## 安装

@@ -37,7 +37,7 @@ dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.2.tgz
 dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.1.tgz
-dsh plugin --profile <profile> add ./dist/dsh-bilibili-summary-0.1.2.tgz
+dsh plugin --profile <profile> add ./dist/dsh-bilibili-summary-0.1.3.tgz
 ```
 
 安装后请保留 `dist/`：profile 里记录的是 tarball 路径，删掉会让该 profile 之后的 `pnpm install` 失败。

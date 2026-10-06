@@ -16,6 +16,10 @@ Bilibili hides AI subtitles from signed-out clients, so the plugin signs in thro
 | `bilibili_series` | List one UP's recent uploads, their collections (合集/系列), or the videos inside one collection, to plan batch work |
 | `bilibili_login` | QR sign-in (`start` / `poll` / `status` / `logout`) |
 
+![A generated summary report](https://raw.githubusercontent.com/Adamaik/dsh-zcode-plugins/main/packages/bilibili-summary/docs/preview.png)
+
+*A real report: info card, one-line summary, key points, and a clickable timeline that jumps back into the player.*
+
 Plus the `bilibili-summary` skill, which turns a transcript into a Chinese HTML report using a bundled template (info card → one-line summary → key points → clickable timeline → glossary → **background annotations** → quotes → action list → collapsible full script).
 
 ## Install

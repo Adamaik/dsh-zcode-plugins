@@ -3,7 +3,7 @@ name: bilibili-summary
 description: "Summarize a Bilibili video into a Chinese HTML report from its subtitle track, falling back to Bilibili's own AI summary, the comment section, and finally local audio transcription. Annotates proper nouns and background that a reader cannot understand out of context. Use when the user shares a bilibili.com, b23.tv, or BV link and asks for a summary, notes, key points, a transcript, highlights, or a written/HTML report; also use when only the subtitle text is wanted, or when a channel or series must be summarized in batch. Not for other video sites."
 metadata:
   author: dsh-zcode-plugins
-  version: "0.1.2"
+  version: "0.1.3"
 ---
 
 # B站视频汇总

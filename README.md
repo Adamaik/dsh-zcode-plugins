@@ -37,7 +37,7 @@ dsh plugin --profile <profile> add ./dist/dsh-zcode-pdf-0.1.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-browser-use-0.6.1.tgz
 dsh plugin --profile <profile> add ./dist/dsh-zcode-image-search-0.1.2.tgz
 dsh plugin --profile <profile> add ./dist/dsh-reverse-image-search-0.1.1.tgz
-dsh plugin --profile <profile> add ./dist/dsh-bilibili-summary-0.1.2.tgz
+dsh plugin --profile <profile> add ./dist/dsh-bilibili-summary-0.1.3.tgz
 ```
 
 Keep `dist/` after installing: the profile records the tarball paths, so deleting them breaks a later `pnpm install` in that profile.

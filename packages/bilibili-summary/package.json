@@ -1,6 +1,6 @@
 {
   "name": "dsh-bilibili-summary",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "type": "module",
   "description": "Bilibili video understanding for DeepSeek Harness: sign in once by QR code, pull a video's AI/CC subtitle track, and summarize it into a self-contained HTML document.",
   "license": "MIT",
