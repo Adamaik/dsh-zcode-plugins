@@ -369,3 +369,15 @@ export async function browserState() {
   }
   return { active: session !== null, url, title }
 }
+
+/**
+ * The page of the running session without creating one, for read-only views.
+ *
+ * `getPage` launches a browser when none runs, which a passive viewer must
+ * never do: the live view polls this once per frame.
+ *
+ * @returns the active page, or undefined when no browser or tab is open.
+ */
+export function peekPage() {
+  return livePage()
+}

@@ -5,7 +5,8 @@
  * agent is on and mirrors it into the right sidebar's built-in Browser tab
  * (`@deepseek-ai/dsh-client-ui-sidebar-browser`):
  *
- *   POST /browser-use/state — whether a browser is open, plus the page URL and title
+ *   POST /browser-use/state — whether a browser is open, the page URL and title,
+ *                              and the loopback origin of the live frame view
  *
  * The route is served by the webServer service, so this module is mounted only
  * where a web GUI exists; a headless host keeps the tools without the bridge.
@@ -14,6 +15,7 @@
  */
 
 import { browserState } from './browser.js'
+import { liveOrigin } from './live.js'
 
 /** URL prefix the browser half polls. */
 export const MIRROR_PREFIX = '/browser-use'
@@ -41,7 +43,7 @@ export function mountMirror(ctx, webServer) {
         path: `${MIRROR_PREFIX}/state`,
         handler: (_req, res) =>
           Promise.resolve(browserState())
-            .then((state) => sendJson(res, { ok: true, ...state }))
+            .then((state) => sendJson(res, { ok: true, ...state, live: liveOrigin() }))
             .catch(() => {
               if (res.headersSent) {
                 res.end()

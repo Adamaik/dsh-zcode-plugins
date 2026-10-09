@@ -16,7 +16,10 @@
 import { readFileSync } from 'node:fs'
 import { resolve as resolveNodePath } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { startLiveView } from './lib/live.js'
 import { mountMirror } from './lib/mirror.js'
+import { mountOwnBrowser } from './lib/own.js'
+import { createOwnBrowserTools } from './lib/own-tools.js'
 import { createBrowserTools } from './lib/tools.js'
 
 /** Cordis plugin name. */
@@ -78,12 +81,43 @@ export function apply(ctx) {
     const options = { ...(cwd ? { cwd } : {}), ...(exec?.signal ? { signal: exec.signal } : {}) }
     return fs.processPath(await fs.resolve(target, options))
   }
-  for (const tool of createBrowserTools(resolveOutput)) ctx.tools.register(tool)
+  // Registering a tool that already exists throws, and a throwing host entry
+  // takes the boot with it. Keep the two groups independent.
+  try {
+    for (const tool of createBrowserTools(resolveOutput)) ctx.tools.register(tool)
+  } catch (error) {
+    console.error('[browser-use] headless browser tools not registered:', error)
+  }
+  // The plugin's own sidebar browser: a real Chromium guest in the right
+  // sidebar, for anything behind a login or behind an anti-bot check.
+  try {
+    for (const tool of createOwnBrowserTools(resolveOutput)) ctx.tools.register(tool)
+  } catch (error) {
+    console.error('[browser-use] own browser tools not registered:', error)
+  }
 
-  // The sidebar mirror needs the web server, which only a web GUI host has.
+  // The sidebar needs the web server, which only a web GUI host has.
   // ctx.inject waits for the service instead of making it a required
   // dependency, so headless and CLI hosts still register the tools.
   ctx.inject(['webServer'], (scope) => {
-    mountMirror(scope, scope.webServer)
+    // Each mount is independent: one broken route must not cost the others, and
+    // none of them may fail the entry.
+    const mounts = [
+      // Command queue for the plugin's own browser; it needs the web GUI's
+      // origin because the client half cannot fetch the live view's own port.
+      () => mountOwnBrowser(scope, scope.webServer),
+      // The live view is a screencast of the headless browser. It is no longer
+      // opened automatically — the own browser replaced it — but the page stays
+      // reachable for watching a headless run.
+      () => mountMirror(scope, scope.webServer),
+      () => startLiveView(scope),
+    ]
+    for (const mount of mounts) {
+      try {
+        mount()
+      } catch (error) {
+        console.error('[browser-use] sidebar mount failed:', error)
+      }
+    }
   })
 }
